@@ -28,3 +28,7 @@ async def proxy_to_openai(req: Request):
         gpt_reply = response.json()
         content = gpt_reply["choices"][0]["message"]["content"]
         return PlainTextResponse(content)
+
+@app.get("/")
+def root():
+    return {"status": "ok"}
