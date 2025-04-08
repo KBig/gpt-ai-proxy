@@ -19,11 +19,14 @@ async def proxy_to_openai(req: Request):
 
     async with httpx.AsyncClient() as client:
         response = await client.post(OPENAI_URL, headers=headers, json={
-            "model": "gpt-4o",
+            "model": "gpt-4o",  # ou "gpt-3.5-turbo" pour test
             "messages": [{"role": "user", "content": body["prompt"]}],
             "temperature": 0.7,
             "max_tokens": 1500
         })
+
+        # 🔍 LOG DEBUG DANS RENDER
+        print("🧠 Réponse brute OpenAI :", response.text)
 
         gpt_reply = response.json()
         content = gpt_reply["choices"][0]["message"]["content"]
